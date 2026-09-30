@@ -1,0 +1,15 @@
+export type LukeMasteryQuestion={id:string;type:'choice'|'text'|'order';concept:string;prompt:string;options?:string[];answer:string|string[];hint:string};
+export const lukeMastery:LukeMasteryQuestion[]=[
+{id:'lm1',type:'choice',concept:'Localização',prompt:'Em qual seção do Novo Testamento Lucas está?',options:['Evangelhos','Cartas Paulinas','História','Profecia'],answer:'Evangelhos',hint:'Lucas é um dos quatro Evangelhos.'},
+{id:'lm2',type:'order',concept:'Estrutura',prompt:'Ordene os grandes movimentos de Lucas.',answer:['Preparação e nascimento','Ministério na Galileia','Caminho para Jerusalém','Jerusalém e cruz','Ressurreição e ascensão'],hint:'Pense do nascimento até a ascensão.'},
+{id:'lm3',type:'text',concept:'Missão de Jesus',prompt:'Complete a ideia central de Lucas 19:10: o Filho do Homem veio fazer o quê?',answer:'buscar|salvar|perdido',hint:'Buscar e salvar o perdido.'},
+{id:'lm4',type:'choice',concept:'Caminho para Jerusalém',prompt:'Qual versículo marca a decisão narrativa de Jesus de seguir para Jerusalém?',options:['Lucas 1:1','Lucas 4:18','Lucas 9:51','Lucas 24:49'],answer:'Lucas 9:51',hint:'A grande viagem começa em 9:51.'},
+{id:'lm5',type:'choice',concept:'Graça e perdido',prompt:'Qual capítulo reúne a ovelha perdida, a moeda perdida e os dois filhos?',options:['Lucas 10','Lucas 12','Lucas 15','Lucas 18'],answer:'Lucas 15',hint:'Lucas 15 concentra as três parábolas.'},
+{id:'lm6',type:'text',concept:'Justificação',prompt:'Em Lucas 18, quem desce para casa justificado: o fariseu ou o publicano?',answer:'publicano',hint:'O pecador que clama por misericórdia.'},
+{id:'lm7',type:'choice',concept:'Nova aliança',prompt:'Em que contexto Jesus fala do cálice como nova aliança?',options:['Batismo','Transfiguração','Última Ceia','Ascensão'],answer:'Última Ceia',hint:'Lucas 22.'},
+{id:'lm8',type:'order',concept:'Paixão e glória',prompt:'Ordene os acontecimentos finais.',answer:['Última Ceia','Getsêmani','Crucificação','Ressurreição','Ascensão'],hint:'Lucas 22–24.'},
+{id:'lm9',type:'text',concept:'Ressurreição',prompt:'O que Jesus faz com os discípulos em Lucas 24 para que compreendam as Escrituras?',answer:'abre|entendimento',hint:'Ele abre o entendimento deles.'},
+{id:'lm10',type:'choice',concept:'Missão',prompt:'Segundo Lucas 24, o que deve ser proclamado às nações em nome de Cristo?',options:['Prosperidade e influência','Arrependimento e perdão dos pecados','Reconstrução do templo','Observância civil de Israel'],answer:'Arrependimento e perdão dos pecados',hint:'A missão nasce da morte e ressurreição de Cristo.'},
+{id:'lm11',type:'text',concept:'Cristologia',prompt:'Cite dois títulos ou identidades atribuídos a Jesus nos capítulos iniciais de Lucas.',answer:'salvador|cristo',hint:'Ex.: Salvador, Cristo, Senhor, Filho do Altíssimo.'},
+{id:'lm12',type:'text',concept:'Síntese',prompt:'Em uma frase, qual é o grande movimento do Evangelho de Lucas?',answer:'jesus|salvar',hint:'Sua resposta deve relacionar Jesus à missão salvadora que culmina em cruz, ressurreição e missão.'}
+];
