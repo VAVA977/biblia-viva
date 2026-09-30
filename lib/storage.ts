@@ -1,8 +1,9 @@
 'use client';
 export type Attempt={questionId:string;concept:string;correct:boolean;partial?:boolean;answer?:unknown;at:string};
-export type AppState={currentBook:number;currentLevel:number;learnStep:number;attempts:Attempt[];weakPoints:Record<string,number>;lastActivity:string|null;nextReview:string|null;explanation:string;seededWeakPoint:boolean};
+export type MasteryResult={score:number;passed:boolean;completedAt:string;concepts:Record<string,boolean>};
+export type AppState={currentBook:number;currentLevel:number;learnStep:number;attempts:Attempt[];weakPoints:Record<string,number>;lastActivity:string|null;nextReview:string|null;explanation:string;seededWeakPoint:boolean;masteryResult:MasteryResult|null};
 const KEY='biblia-viva-state-v1';
-export const defaultState:AppState={currentBook:1,currentLevel:1,learnStep:0,attempts:[],weakPoints:{},lastActivity:null,nextReview:null,explanation:'',seededWeakPoint:false};
+export const defaultState:AppState={currentBook:1,currentLevel:1,learnStep:0,attempts:[],weakPoints:{},lastActivity:null,nextReview:null,explanation:'',seededWeakPoint:false,masteryResult:null};
 export function loadState():AppState{if(typeof window==='undefined')return defaultState;try{return {...defaultState,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch{return defaultState}}
 export function saveState(s:AppState){if(typeof window!=='undefined')localStorage.setItem(KEY,JSON.stringify(s))}
 const intervals=[1,2,4,7,14,30];
