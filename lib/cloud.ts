@@ -1,9 +1,31 @@
 'use client';
-import type { AppState } from './storage'; import { createSupabaseBrowserClient } from './supabase';
-let client:ReturnType<typeof createSupabaseBrowserClient>|undefined; function getClient(){if(client===undefined)client=createSupabaseBrowserClient();return client}
+import type { AppState } from './storage';
+import { createSupabaseBrowserClient } from './supabase';
+
+let client:ReturnType<typeof createSupabaseBrowserClient>|undefined;
+function getClient(){if(client===undefined)client=createSupabaseBrowserClient();return client}
+
 export function cloudConfigured(){return!!getClient()}
 export async function getCloudUser(){const s=getClient();if(!s)return null;const{data:{session}}=await s.auth.getSession();return session?.user??null}
-export async function requestMagicLink(email:string){const s=getClient();if(!s)return{ok:false,message:'Supabase ainda não está configurado.'};const redirectTo=typeof window!=='undefined'?window.location.origin:undefined;const{error}=await s.auth.signInWithOtp({email,options:redirectTo?{emailRedirectTo:redirectTo}:undefined});return error?{ok:false,message:error.message}:{ok:true,message:'Enviamos um link de acesso para seu e-mail.'}}
+
+function magicLinkErrorMessage(message:string){
+ const m=message.toLowerCase();
+ if(m.includes('rate limit')||m.includes('too many'))return 'Você solicitou links de acesso em sequência. Aguarde um pouco antes de tentar novamente.';
+ if(m.includes('invalid')&&m.includes('email'))return 'Confira o endereço de e-mail e tente novamente.';
+ if(m.includes('smtp')||m.includes('email')&&m.includes('send'))return 'Não foi possível enviar o e-mail de acesso agora. Tente novamente em alguns instantes.';
+ return 'Não foi possível enviar o link de acesso. Tente novamente em alguns instantes.';
+}
+
+export async function requestMagicLink(email:string){
+ const s=getClient();
+ if(!s)return{ok:false,message:'A conexão com a nuvem ainda não está configurada.'};
+ const clean=email.trim().toLowerCase();
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean))return{ok:false,message:'Digite um endereço de e-mail válido.'};
+ const redirectTo=typeof window!=='undefined'?window.location.origin:undefined;
+ const{error}=await s.auth.signInWithOtp({email:clean,options:redirectTo?{emailRedirectTo:redirectTo}:undefined});
+ return error?{ok:false,message:magicLinkErrorMessage(error.message)}:{ok:true,message:'Link enviado. Confira seu e-mail para entrar no Bíblia Viva.'}
+}
+
 export async function signOutCloud(){const s=getClient();if(s)await s.auth.signOut()}
 export function onCloudAuthChange(cb:()=>void){const s=getClient();if(!s)return()=>{};const{data}=s.auth.onAuthStateChange(()=>cb());return()=>data.subscription.unsubscribe()}
 export async function loadCloudState():Promise<AppState|null>{const s=getClient(),u=await getCloudUser();if(!s||!u)return null;const{data,error}=await s.from('user_progress').select('*').eq('user_id',u.id).maybeSingle();if(error||!data)return null;return{currentBook:data.current_book,currentLevel:data.current_level,learnStep:data.learn_step,attempts:data.attempts||[],weakPoints:data.weak_points||{},lastActivity:data.last_activity,nextReview:data.next_review,explanation:data.explanation||'',seededWeakPoint:true}}
