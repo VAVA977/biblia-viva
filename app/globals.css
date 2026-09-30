@@ -85,3 +85,9 @@
  .personCopy{align-items:flex-start;flex-direction:column;gap:3px}
  .personCopy small{flex:auto}
 }
+
+
+/* Approved visual-memory anchors in the canonical map */
+.bookAnchorThumb{width:100%;aspect-ratio:9/16;object-fit:cover;object-position:top;border-radius:12px;margin:0 0 10px;display:block;background:#eee9df}
+.book:has(.bookAnchorThumb){padding:8px;text-align:left;overflow:hidden}
+.book:has(.bookAnchorThumb)>small,.book:has(.bookAnchorThumb)>b,.book:has(.bookAnchorThumb)>span{margin-left:4px;margin-right:4px}
