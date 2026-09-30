@@ -46,3 +46,19 @@
   .bookGrid{grid-template-columns:1fr}
   .bottom button{font-size:10px}
 }
+
+/* Learning result clarity */
+.resultRow{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.resultConcept{display:flex;align-items:center;gap:10px;min-width:0}
+.resultConcept i{width:27px;height:27px;flex:0 0 27px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:900}
+.resultConcept b{line-height:1.3}
+.resultStatus{flex:0 0 auto;font-size:12px;font-weight:800;padding:6px 10px;border-radius:99px}
+.mastered .resultConcept i,.mastered .resultStatus{background:#eaf3e7;color:#557b24}
+.needsReview{border-color:#dfb8af;background:#fffaf8}
+.needsReview .resultConcept i,.needsReview .resultStatus{background:#f8e9e5;color:var(--danger)}
+.explainGrid article{display:flex;flex-direction:column;gap:10px}
+.explainGrid article>strong{font-size:28px;line-height:1}
+.conceptList{display:flex;flex-direction:column;gap:8px}
+.conceptList span{display:block;line-height:1.35;padding-top:7px;border-top:1px solid var(--line)}
+.missingList span{color:var(--danger)}
+@media(max-width:560px){.resultRow{padding:15px 14px}.resultStatus{font-size:11px}.resultConcept b{font-size:15px}}
